@@ -9,7 +9,7 @@ from rich.panel import Panel
 from rich.syntax import Syntax
 from rich.table import Table
 
-# --- CONFIG ---
+
 API_KEY = os.getenv("GEMINI_API_KEY")
 if not API_KEY:
     raise RuntimeError("❌ GEMINI_API_KEY not set in environment")
@@ -20,7 +20,7 @@ model = genai.GenerativeModel("gemini-3-flash-preview")
 console = Console()
 CACHE = {}
 
-# --- UTILS ---
+
 def hash_code(code: str) -> str:
     return hashlib.sha256(code.encode()).hexdigest()
 
@@ -73,7 +73,6 @@ def analyze_and_fix(target_file, result):
 
     code_hash = hash_code(code)
 
-    # Contextual data based on execution result
     if result.returncode != 0:
         context = f"ERROR DETECTED:\n{result.stderr}"
         task_type = "CRASH FIX"
@@ -81,7 +80,6 @@ def analyze_and_fix(target_file, result):
         context = f"OBSERVED OUTPUT:\n{result.stdout}"
         task_type = "LOGIC AUDIT"
 
-    # THE COMBINED MASTER PROMPT
     prompt = f"""
 ACT AS A SENIOR FULL-STACK ENGINEER AND QA EXPERT.
 Perform a {task_type} on the provided Python code.
@@ -108,7 +106,7 @@ You MUST follow this format exactly:
    - Do NOT 
 """
     return get_ai_response(prompt, code_hash), task_type
-# --- MAIN ---
+
 def main():
     console.print(Panel.fit("⚡ AUTOPATCH: RESET & HEAL ⚡", border_style="cyan"))
 
@@ -156,4 +154,5 @@ def main():
     console.print(table)
 
 if __name__ == "__main__":
+
     main()
