@@ -1,27 +1,67 @@
 # ⚡ NXTGEN-AutoPatch
 
-**NXTGEN-AutoPatch** is a high-performance, self-healing AI debugger that identifies, explains, and repairs code in real-time. Powered by Gemini 3 Flash, it doesn't just fix syntax—it understands **intent**.
+[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
+[![AI Model](https://img.shields.io/badge/AI%20Model-Gemini%203%20Flash-orange)](https://deepmind.google/technologies/gemini/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+**NXTGEN-AutoPatch** is an autonomous, self-healing AI debugging agent designed to bridge the gap between "code that runs" and "code that works." By leveraging the **Gemini 3 Flash** engine, it performs deep semantic analysis to repair runtime crashes, logical flaws, and latent architectural risks in real-time.
 
 > "Turns crappy code into production-grade assets instantly." 🚀💀
 
 ---
 
-## ✨ Key Features
-
-* **🧠 Semantic Intent Analysis**: Goes beyond syntax; it understands what your code *should* do and aligns the logic accordingly.
-* **🛡️ Bulletproof Refactoring**: Automatically detects and repairs latent risks like **Race Conditions**, **Memory Leaks**, and **Mutable Default Arguments**.
-* **🔄 Two-Round Self-Healing**: Implements a "Reset & Heal" loop—applies a patch, re-runs the code, and performs a secondary audit to ensure 100% stability.
-* **📊 Rich CLI Interface**: Professional terminal UI with side-by-side code diffs and "Inner Monologue" reasoning traces.
-* **⚡ Gemini 3 Flash Powered**: Optimized for speed and complex engineering tasks, outperforming Pro models on SWE-bench logic.
+## 📖 Table of Contents
+1. [Core Capabilities](#-core-capabilities)
+2. [Technical Architecture](#-technical-architecture)
+3. [The Self-Healing Loop](#-the-self-healing-loop)
+4. [Installation & Setup](#-installation--setup)
+5. [Usage & Examples](#-usage--examples)
+6. [Advanced Logic Auditing](#-advanced-logic-auditing)
 
 ---
 
-## 🚀 Quick Start
+## 🧠 Core Capabilities
 
-### 1. Installation
+Unlike traditional linters, NXTGEN-AutoPatch operates on **Intent**. It understands the "Why" behind your "How."
+
+* **⚡ Semantic Intent Analysis**: Corrects math logic (e.g., inverted transaction math) based on variable names and context.
+* **🛡️ Thread Safety & Concurrency**: Identifies race conditions and automatically implements `threading.Lock()` and atomic operations.
+* **🧹 Resource Management**: Detects memory leaks and suggests optimized data structures like `deque`.
+* **🧪 Edge Case Hardening**: Proactively adds validation for ZeroDivision, TypeErrors, and empty data sets.
+* **✨ Professional CLI**: Powered by `rich`, featuring side-by-side "Original vs. Healed" diffs and "Inner Monologue" reasoning traces.
+
+---
+
+## 🏗️ Technical Architecture
+
+NXTGEN-AutoPatch is built on a "Ghost-in-the-Shell" execution model:
+
+1.  **Isolated Execution**: Uses Python's `subprocess` to run target scripts in a sandbox with a 5-second timeout and automated dummy inputs ("10") to prevent hanging on infinite loops or `input()` calls.
+2.  **Context Injection**: Combines the script's source code, error logs (stderr), and observed outputs (stdout) into a high-density prompt for the Gemini 3 Flash model.
+3.  **Reflective Reasoning**: Uses a **Chain-of-Thought (CoT)** prompt structure, forcing the AI to document its "Inner Monologue" before outputting code.
+
+
+---
+
+## 🔄 The Self-Healing Loop
+
+NXTGEN-AutoPatch employs a **Two-Round Verification System** to ensure 100% stable patches:
+
+* **Round 1: Initial Repair**: The agent identifies the primary crash or logical flaw and applies a first-pass patch.
+* **Round 2: Secondary Audit**: The agent re-executes the *patched* code. It then asks the AI to perform a "Self-Reflection" audit—checking if the new fix introduced any side effects or missed any secondary logic bugs.
+
+---
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+* Python 3.10+
+* A Google AI Studio API Key (Gemini 3 Flash)
+
+### Setup
 ```bash
 # Clone the repository
-git clone [https://github.com/yourusername/NXTGEN-AutoPatch.git](https://github.com/yourusername/NXTGEN-AutoPatch.git)
+git clone [https://github.com/Computer-Nerdy/NXTGEN-AutoPatch.git](https://github.com/Computer-Nerdy/NXTGEN-AutoPatch.git)
 cd NXTGEN-AutoPatch
 
 # Install dependencies
@@ -29,4 +69,27 @@ pip install -r requirements.txt
 
 export GEMINI_API_KEY="your_api_key_here"
 
-python autopatch.py your_broken_script.py
+
+python autopatch.py my_script.py
+
+
+The "Enterprise Nightmare" Stress Test
+NXTGEN-AutoPatch can handle complex multi-threaded scripts with ease. Try it on our sample stress test:
+
+
+python autopatch.py examples/enterprise_nightmare.py
+```
+
+This test includes:
+
+Mutable Default Argument bugs (task_queue=[]).
+
+Global state race conditions.
+
+Infinite memory leakage simulation.
+
+Subtle logic errors in percentage calculations.
+
+
+📜 License
+This project is licensed under the MIT License.
