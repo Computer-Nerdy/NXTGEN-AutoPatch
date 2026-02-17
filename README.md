@@ -40,7 +40,6 @@ NXTGEN-AutoPatch is built on a "Ghost-in-the-Shell" execution model:
 2.  **Context Injection**: Combines the script's source code, error logs (stderr), and observed outputs (stdout) into a high-density prompt for the Gemini 3 Flash model.
 3.  **Reflective Reasoning**: Uses a **Chain-of-Thought (CoT)** prompt structure, forcing the AI to document its "Inner Monologue" before outputting code.
 
-
 ---
 
 ## 🔄 The Self-Healing Loop
@@ -48,7 +47,7 @@ NXTGEN-AutoPatch is built on a "Ghost-in-the-Shell" execution model:
 NXTGEN-AutoPatch employs a **Two-Round Verification System** to ensure 100% stable patches:
 
 * **Round 1: Initial Repair**: The agent identifies the primary crash or logical flaw and applies a first-pass patch.
-* **Round 2: Secondary Audit**: The agent re-executes the *patched* code. It then asks the AI to perform a "Self-Reflection" audit—checking if the new fix introduced any side effects or missed any secondary logic bugs.
+* **Round 2: Secondary Audit**: The agent re-executes the *patched* code and performs a "Self-Reflection" audit to check for side effects or missed logic.
 
 ---
 
@@ -67,29 +66,39 @@ cd NXTGEN-AutoPatch
 # Install dependencies
 pip install -r requirements.txt
 
+# Set your API Key
 export GEMINI_API_KEY="your_api_key_here"
 
+```
 
+## 🛠️ Usage & Examples
+
+### Basic Usage
+To fix a script, simply run the agent against your target file:
+```bash
 python autopatch.py my_script.py
-
+```
 
 The "Enterprise Nightmare" Stress Test
-NXTGEN-AutoPatch can handle complex multi-threaded scripts with ease. Try it on our sample stress test:
-
+NXTGEN-AutoPatch is designed to handle complex, multi-threaded scripts. You can test its limits using our sample stress test:
 
 python autopatch.py examples/enterprise_nightmare.py
-```
 
 This test includes:
 
-Mutable Default Argument bugs (task_queue=[]).
+Mutable Default Argument bugs: Identifies task_queue=[] traps that leak state across calls.
 
-Global state race conditions.
+Global state race conditions: Detects unsynchronized access to shared resources across multiple threads.
 
-Infinite memory leakage simulation.
+Infinite memory leakage simulation: Spots ever-growing buffers and suggests optimized management.
 
-Subtle logic errors in percentage calculations.
+Subtle logic errors: Corrects incorrect math in percentage calculations that don't trigger crashes.
 
+## 🔍 Advanced Logic Auditing
 
-📜 License
-This project is licensed under the MIT License.
+NXTGEN-AutoPatch is specifically tuned to catch "Silent Killers"—bugs that produce incorrect results without triggering a crash:
+
+* **Race Condition Detection**: Identifies unsynchronized access to shared global resources and implements necessary locking mechanisms.
+* **Semantic Math Verification**: Compares variable names (e.g., `tax`, `balance`) with mathematical operations to identify and flip inverted logic.
+* **Mutable Default Argument Audit**: Scans function signatures for initialized `list` or `dict` objects that cause unexpected state leakage between calls.
+* **Resource Leak Analysis**: Recognizes data structures that grow monotonically without a clear termination or clearing path, preventing memory exhaustion.
