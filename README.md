@@ -68,6 +68,8 @@ pip install -r requirements.txt
 
 # Set your API Key
 export GEMINI_API_KEY="your_api_key_here"
+$env:GEMINI_API_KEY="YOUR_API_KEY_FROM_GOOGLE"
+python AUTOPATCH.py YOUR_FILE.py renamed as broken.py
 
 ```
 
